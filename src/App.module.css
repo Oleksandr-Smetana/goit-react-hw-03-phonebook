@@ -1,0 +1,15 @@
+.app {
+  margin: 20px auto;
+  width: 320px;
+  background-color: rgb(255, 255, 225);
+  border: 1px solid rgb(190, 190, 190);
+  border-radius: 6px;
+  box-shadow: 4px 4px 10px rgb(141, 141, 141);
+}
+
+.title {
+  margin-top: 20px;
+  text-align: center;
+  color: rgb(40, 40, 0);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
