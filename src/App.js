@@ -1,5 +1,4 @@
 import { Component } from "react";
-// import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from "uuid";
 import s from "./App.module.css";
 
@@ -8,20 +7,23 @@ import ContactList from "./components/ContactList";
 import Filter from "./components/Filter";
 
 class Phonebook extends Component {
-  // static propTypes = {
-  //   contacts: PropTypes.arrayOf(PropTypes.shape).isRequired,
-  //   filter: PropTypes.string.isRequired,
-  // };
-
   state = {
-    contacts: [
-      { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
-      { id: "id-2", name: "Hermione Kline", number: "443-89-12" },
-      { id: "id-3", name: "Eden Clements", number: "645-17-79" },
-      { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
-    ],
+    contacts: [],
     filter: "",
   };
+
+  componentDidMount() {
+    const parsedContacts = JSON.parse(localStorage.getItem("contacts"));
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.contacts !== this.state.contacts) {
+      localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
+    }
+  }
 
   // добавление контактов с проверкой на уникальность
   addContact = ({ name, number }) => {
@@ -76,10 +78,14 @@ class Phonebook extends Component {
 
         <h2 className={s.title}>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
-        <ContactList
-          contacts={this.getVisibleContacts()}
-          onDelete={this.removeContact}
-        />
+        {this.getVisibleContacts().length !== 0 ? (
+          <ContactList
+            contacts={this.getVisibleContacts()}
+            onDelete={this.removeContact}
+          />
+        ) : (
+          <p className={s.notification}>There are no contacts yet...</p>
+        )}
       </div>
     );
   }

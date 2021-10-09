@@ -1,13 +1,7 @@
 import { Component } from "react";
-// import PropTypes from 'prop-types';
 import s from "./ContactForm.module.css";
 
 class ContactForm extends Component {
-  //   static propTypes = {
-  //     name: PropTypes.string.isRequired,
-  //     number: PropTypes.string.isRequired,
-  //   };
-
   state = {
     name: "",
     number: "",
